@@ -1,12 +1,13 @@
-<form method="POST" action="https://script.google.com/macros/s/AKfycbyS29Bs9nKC-B9OZNBXqx2TefZhuHU72iDfRIos6HBcpeuTCkaViIZ2Dy5Vg6rVkPlF2A/exec">
-  <label for="nome">Nome:</label><br>
-  <input type="text" id="nome" name="nome" required><br><br>
+function doPost(e) {
+  Logger.log(JSON.stringify(e)); // Adiciona um log para verificar os dados recebidos
+  var ss = SpreadsheetApp.openById('1t3znA1Dko6EVLUKaz3lmQfliq94pYt8FK3v1cKU273I');
+  var sheet = ss.getSheets()[0];
 
-  <label for="email">Email:</label><br>
-  <input type="email" id="email" name="email" required><br><br>
+  var nome = e.parameter.nome;
+  var email = e.parameter.email;
+  var palpite = e.parameter.palpite;
 
-  <label for="palpite">Seu palpite:</label><br>
-  <textarea id="palpite" name="palpite" rows="4" required></textarea><br><br>
+  sheet.appendRow([nome, email, palpite]);
 
-  <button type="submit">Enviar Palpite</button>
-</form>
+  return ContentService.createTextOutput("Success");
+}
