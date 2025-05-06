@@ -1,13 +1,72 @@
-function doPost(e) {
-  Logger.log(JSON.stringify(e)); // Adiciona um log para verificar os dados recebidos
-  var ss = SpreadsheetApp.openById('1t3znA1Dko6EVLUKaz3lmQfliq94pYt8FK3v1cKU273I');
-  var sheet = ss.getSheets()[0];
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Envio de Palpites</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      font-size: 14px;
+      color: #555;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
 
-  var nome = e.parameter.nome;
-  var email = e.parameter.email;
-  var palpite = e.parameter.palpite;
+  <div class="form-container">
+    <h1>Envie seu Palpite</h1>
+    <form method="POST" action="https://script.google.com/macros/s/AKfycbyS29Bs9nKC-B9OZNBXqx2TefZhuHU72iDfRIos6HBcpeuTCkaViIZ2Dy5Vg6rVkPlF2A/exec">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
 
-  sheet.appendRow([nome, email, palpite]);
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
 
-  return ContentService.createTextOutput("Success");
-}
+      <label for="palpite">Seu Palpite:</label>
+      <textarea id="palpite" name="palpite" rows="4" required></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+</body>
+</html>
