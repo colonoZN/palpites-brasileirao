@@ -2,157 +2,74 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Palpites para a Rodada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palpite do Brasileirão - R$20</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      padding: 20px;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
     }
     h1 {
+      color: #27ae60;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 15px;
+      margin-top: 15px;
       color: #333;
     }
-    .login-form, .palpites-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      max-width: 400px;
-      margin: 20px;
+    textarea {
       width: 100%;
-    }
-    .login-form input {
+      height: 100px;
+      margin-top: 10px;
       padding: 10px;
-      margin: 10px;
-      width: 100%;
+      font-size: 14px;
+      resize: none;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
-    .login-form button {
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    img {
+      margin-top: 20px;
+      max-width: 100%;
+      height: auto;
     }
-    .login-form button:hover {
-      background-color: #45a049;
-    }
-    .palpite {
-      text-align: center;
-      margin: 10px;
-      background-color: #fff;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 180px;
-    }
-    .team-logo {
-      width: 50px;
-      height: 50px;
-      background-size: cover;
-      background-position: center;
-      margin: 5px auto;
-    }
-    .team-name {
-      font-size: 16px;
+    .destaque {
+      color: #e67e22;
       font-weight: bold;
-    }
-    .result {
-      margin-top: 10px;
-      font-size: 18px;
-      color: #333;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Palpite do Brasileirão</h1>
+    <p>💰 Valor: <span class="destaque">R$20,00</span></p>
 
-  <div id="login-page" class="login-form">
-    <h1>Login</h1>
-    <input type="text" id="username" placeholder="Digite seu nome de usuário">
-    <input type="password" id="password" placeholder="Digite sua senha">
-    <button onclick="login()">Entrar</button>
-    <p id="login-error" style="color: red; display: none;">Usuário ou senha incorretos. Tente novamente.</p>
+    <p>1️⃣ Copie o código PIX abaixo:</p>
+    <textarea readonly>00020126580014br.gov.bcb.pix0119lindbechcostal@gmail.com520400005303986540520.005802BR5920Lindbech Costa6009SAO PAULO62070503***6304ABCD</textarea>
+
+    <p>2️⃣ Ou escaneie o QR Code abaixo:</p>
+    <img src="qrcode-pix.png" alt="QR Code do PIX">
+
+    <p>3️⃣ Após o pagamento, envie o comprovante para:<br>
+    📧 <strong>lindbechcostal@gmail.com</strong><br>
+    📱 WhatsApp: <strong>(11) 91234-5678</strong></p>
+
+    <p>✅ Após a confirmação, você receberá seu palpite da rodada!</p>
   </div>
-
-  <div id="palpites-page" class="palpites-container" style="display: none;">
-    <h1>Palpites para a Rodada</h1>
-    <div id="palpites-container">
-      <!-- Os palpites serão inseridos aqui dinamicamente -->
-    </div>
-  </div>
-
-  <script>
-    const usuarios = [
-      { usuario: 'usuario1', senha: 'senha1' },
-      { usuario: 'usuario2', senha: 'senha2' }
-    ];
-
-    const palpites = [
-      {
-        time1: "Flamengo",
-        time2: "Vasco",
-        resultado: "2-1",
-        escudoTime1: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Flamengo_logo.svg/1200px-Flamengo_logo.svg.png",
-        escudoTime2: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Logo_Vasco_da_Gama.svg/1280px-Logo_Vasco_da_Gama.svg.png",
-      },
-      {
-        time1: "Palmeiras",
-        time2: "São Paulo",
-        resultado: "1-1",
-        escudoTime1: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Palmeiras_logo_2015.svg/1200px-Palmeiras_logo_2015.svg.png",
-        escudoTime2: "https://upload.wikimedia.org/wikipedia/commons/6/67/Logo_S%C3%A3o_Paulo_FC.svg",
-      },
-      {
-        time1: "Grêmio",
-        time2: "Internacional",
-        resultado: "3-2",
-        escudoTime1: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Gr%C3%AAmio_Football_Club_logo.svg/1200px-Gr%C3%AAmio_Football_Club_logo.svg.png",
-        escudoTime2: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Logo_Internacional.svg/1280px-Logo_Internacional.svg.png",
-      }
-    ];
-
-    function login() {
-      const usuario = document.getElementById('username').value;
-      const senha = document.getElementById('password').value;
-      const erro = document.getElementById('login-error');
-
-      const usuarioValido = usuarios.find(u => u.usuario === usuario && u.senha === senha);
-
-      if (usuarioValido) {
-        // Login bem-sucedido
-        document.getElementById('login-page').style.display = 'none';
-        document.getElementById('palpites-page').style.display = 'block';
-        exibirPalpites();
-      } else {
-        // Login falhou
-        erro.style.display = 'block';
-      }
-    }
-
-    function exibirPalpites() {
-      const container = document.getElementById('palpites-container');
-      palpites.forEach(palpite => {
-        const divPalpite = document.createElement('div');
-        divPalpite.classList.add('palpite');
-
-        divPalpite.innerHTML = `
-          <div class="team-logo" style="background-image: url('${palpite.escudoTime1}');"></div>
-          <div class="team-name">${palpite.time1}</div>
-          <div class="team-logo" style="background-image: url('${palpite.escudoTime2}');"></div>
-          <div class="team-name">${palpite.time2}</div>
-          <div class="result">Resultado: ${palpite.resultado}</div>
-        `;
-        
-        container.appendChild(divPalpite);
-      });
-    }
-  </script>
-
 </body>
 </html>
