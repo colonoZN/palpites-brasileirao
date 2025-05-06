@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Palpites da Rodada</title>
+  <title>Palpites para a Rodada</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,6 +12,9 @@
       flex-direction: column;
       align-items: center;
       padding: 20px;
+    }
+    h1 {
+      color: #333;
     }
     .palpites-container {
       width: 100%;
@@ -23,16 +26,27 @@
     .palpite {
       text-align: center;
       margin: 10px;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 180px;
     }
     .team-logo {
       width: 50px;
       height: 50px;
       background-size: cover;
-      margin: 5px;
+      background-position: center;
+      margin: 5px auto;
     }
     .team-name {
       font-size: 16px;
       font-weight: bold;
+    }
+    .result {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #333;
     }
   </style>
 </head>
@@ -40,20 +54,58 @@
 
   <h1>Palpites para a Rodada</h1>
 
-  <div class="palpites-container">
-    <div class="palpite">
-      <div class="team-logo" style="background-image: url('escudo-do-time-1.png');"></div>
-      <div class="team-name">Time 1</div>
-      <p>Resultado: 2-1</p>
-    </div>
-    <div class="palpite">
-      <div class="team-logo" style="background-image: url('escudo-do-time-2.png');"></div>
-      <div class="team-name">Time 2</div>
-      <p>Resultado: 1-1</p>
-    </div>
-    <!-- Continue com os palpites aqui -->
+  <div class="palpites-container" id="palpites-container">
+    <!-- Os palpites serão inseridos aqui dinamicamente -->
   </div>
+
+  <script>
+    // Dados dos palpites (isso pode vir de uma API ou banco de dados real)
+    const palpites = [
+      {
+        time1: "Flamengo",
+        time2: "Vasco",
+        resultado: "2-1",
+        escudoTime1: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Flamengo_logo.svg/1200px-Flamengo_logo.svg.png",  // URL do escudo do Flamengo
+        escudoTime2: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Logo_Vasco_da_Gama.svg/1280px-Logo_Vasco_da_Gama.svg.png", // URL do escudo do Vasco
+      },
+      {
+        time1: "Palmeiras",
+        time2: "São Paulo",
+        resultado: "1-1",
+        escudoTime1: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Palmeiras_logo_2015.svg/1200px-Palmeiras_logo_2015.svg.png",
+        escudoTime2: "https://upload.wikimedia.org/wikipedia/commons/6/67/Logo_S%C3%A3o_Paulo_FC.svg",
+      },
+      {
+        time1: "Grêmio",
+        time2: "Internacional",
+        resultado: "3-2",
+        escudoTime1: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Gr%C3%AAmio_Football_Club_logo.svg/1200px-Gr%C3%AAmio_Football_Club_logo.svg.png",
+        escudoTime2: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Logo_Internacional.svg/1280px-Logo_Internacional.svg.png",
+      }
+    ];
+
+    // Função para exibir os palpites
+    function exibirPalpites() {
+      const container = document.getElementById('palpites-container');
+      palpites.forEach(palpite => {
+        const divPalpite = document.createElement('div');
+        divPalpite.classList.add('palpite');
+
+        divPalpite.innerHTML = `
+          <div class="team-logo" style="background-image: url('${palpite.escudoTime1}');"></div>
+          <div class="team-name">${palpite.time1}</div>
+          <div class="team-logo" style="background-image: url('${palpite.escudoTime2}');"></div>
+          <div class="team-name">${palpite.time2}</div>
+          <div class="result">Resultado: ${palpite.resultado}</div>
+        `;
+        
+        container.appendChild(divPalpite);
+      });
+    }
+
+    // Chama a função para exibir os palpites na página
+    exibirPalpites();
+  </script>
 
 </body>
 </html>
-
