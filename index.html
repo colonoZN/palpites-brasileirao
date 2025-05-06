@@ -16,12 +16,32 @@
     h1 {
       color: #333;
     }
-    .palpites-container {
-      width: 100%;
-      max-width: 600px;
+    .login-form, .palpites-container {
       display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: 400px;
+      margin: 20px;
+      width: 100%;
+    }
+    .login-form input {
+      padding: 10px;
+      margin: 10px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .login-form button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .login-form button:hover {
+      background-color: #45a049;
     }
     .palpite {
       text-align: center;
@@ -52,21 +72,34 @@
 </head>
 <body>
 
-  <h1>Palpites para a Rodada</h1>
+  <div id="login-page" class="login-form">
+    <h1>Login</h1>
+    <input type="text" id="username" placeholder="Digite seu nome de usuário">
+    <input type="password" id="password" placeholder="Digite sua senha">
+    <button onclick="login()">Entrar</button>
+    <p id="login-error" style="color: red; display: none;">Usuário ou senha incorretos. Tente novamente.</p>
+  </div>
 
-  <div class="palpites-container" id="palpites-container">
-    <!-- Os palpites serão inseridos aqui dinamicamente -->
+  <div id="palpites-page" class="palpites-container" style="display: none;">
+    <h1>Palpites para a Rodada</h1>
+    <div id="palpites-container">
+      <!-- Os palpites serão inseridos aqui dinamicamente -->
+    </div>
   </div>
 
   <script>
-    // Dados dos palpites (isso pode vir de uma API ou banco de dados real)
+    const usuarios = [
+      { usuario: 'usuario1', senha: 'senha1' },
+      { usuario: 'usuario2', senha: 'senha2' }
+    ];
+
     const palpites = [
       {
         time1: "Flamengo",
         time2: "Vasco",
         resultado: "2-1",
-        escudoTime1: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Flamengo_logo.svg/1200px-Flamengo_logo.svg.png",  // URL do escudo do Flamengo
-        escudoTime2: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Logo_Vasco_da_Gama.svg/1280px-Logo_Vasco_da_Gama.svg.png", // URL do escudo do Vasco
+        escudoTime1: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Flamengo_logo.svg/1200px-Flamengo_logo.svg.png",
+        escudoTime2: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Logo_Vasco_da_Gama.svg/1280px-Logo_Vasco_da_Gama.svg.png",
       },
       {
         time1: "Palmeiras",
@@ -84,7 +117,24 @@
       }
     ];
 
-    // Função para exibir os palpites
+    function login() {
+      const usuario = document.getElementById('username').value;
+      const senha = document.getElementById('password').value;
+      const erro = document.getElementById('login-error');
+
+      const usuarioValido = usuarios.find(u => u.usuario === usuario && u.senha === senha);
+
+      if (usuarioValido) {
+        // Login bem-sucedido
+        document.getElementById('login-page').style.display = 'none';
+        document.getElementById('palpites-page').style.display = 'block';
+        exibirPalpites();
+      } else {
+        // Login falhou
+        erro.style.display = 'block';
+      }
+    }
+
     function exibirPalpites() {
       const container = document.getElementById('palpites-container');
       palpites.forEach(palpite => {
@@ -102,9 +152,6 @@
         container.appendChild(divPalpite);
       });
     }
-
-    // Chama a função para exibir os palpites na página
-    exibirPalpites();
   </script>
 
 </body>
