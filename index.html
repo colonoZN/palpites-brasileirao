@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compra de Palpites</title>
+  <title>Cadastro/Login</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,7 +15,7 @@
       align-items: center;
       height: 100vh;
     }
-    .container {
+    .form-container {
       background-color: #fff;
       padding: 20px;
       border-radius: 8px;
@@ -27,31 +27,17 @@
       text-align: center;
       color: #333;
     }
-    .pix-container {
-      background-color: #f1f1f1;
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .pix-container p {
-      margin: 10px 0;
-    }
-    .pix-code {
-      background-color: #fff;
-      border: 1px solid #ccc;
-      padding: 10px;
-      border-radius: 4px;
-      font-family: monospace;
-      word-wrap: break-word;
-    }
-    button {
+    input, button {
       width: 100%;
       padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
       background-color: #4CAF50;
       color: white;
-      border: none;
-      border-radius: 4px;
       cursor: pointer;
     }
     button:hover {
@@ -61,28 +47,42 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>Compre Seu Palpite</h1>
-
-    <div class="pix-container">
-      <h2>Faça o pagamento via PIX</h2>
-      <p>Chave PIX: <strong>lindbechcostal@gmail.com</strong></p>
-      <p>Clique no botão abaixo para copiar a chave e efetuar o pagamento!</p>
-      <div id="pix" class="pix-code">lindbechcostal@gmail.com</div>
-      <button onclick="copiarPix()">Copiar Chave PIX</button>
-    </div>
-
-    <div class="message">
-      <h3>Após o pagamento, você receberá os palpites!</h3>
-    </div>
+  <div class="form-container">
+    <h1>Cadastro/Login</h1>
+    <input type="text" id="username" placeholder="Nome de usuário" required>
+    <input type="password" id="password" placeholder="Senha" required>
+    <button onclick="login()">Login</button>
+    <button onclick="cadastrar()">Cadastrar</button>
   </div>
 
   <script>
-    function copiarPix() {
-      const pix = document.getElementById("pix").innerText;
-      navigator.clipboard.writeText(pix).then(() => {
-        alert("Chave PIX copiada! Realize o pagamento.");
-      });
+    // Função para cadastrar usuário
+    function cadastrar() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username && password) {
+        localStorage.setItem('user', JSON.stringify({ username, password }));
+        alert('Cadastro realizado com sucesso!');
+        window.location.href = 'palpites.html'; // Redireciona para a página de palpites
+      } else {
+        alert('Preencha todos os campos!');
+      }
+    }
+
+    // Função para login
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      if (user && user.username === username && user.password === password) {
+        alert('Login realizado com sucesso!');
+        window.location.href = 'palpites.html'; // Redireciona para a página de palpites
+      } else {
+        alert('Usuário ou senha incorretos!');
+      }
     }
   </script>
 
